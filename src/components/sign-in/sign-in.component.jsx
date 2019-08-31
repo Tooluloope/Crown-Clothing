@@ -34,6 +34,7 @@ export class SignIn extends React.Component {
 
 
     render() {
+        const {email, password} = this.state
        return (
             <div className='sign-in'>
 
@@ -43,8 +44,8 @@ export class SignIn extends React.Component {
             
              
                     
-                <FormInput type="email" name="email" handleChange={this.handleChange} value={ this.state.email } label='email'/>
-                <FormInput type="password" name="password" handleChange={this.handleChange} value={ this.state.password } label='password'/>
+                <FormInput type="email" name="email" handleChange={this.handleChange} value={ email } label='email'/>
+                <FormInput type="password" name="password" handleChange={this.handleChange} value={ password } label='password'/>
                 <div className="button">
                     <CustomButton type="Submit" children={'SIGN IN'}/>
                     <CustomButton onClick ={signInWithGoogle} children={'SIGN IN WITH GOOGLE'} isGoogleSignin />

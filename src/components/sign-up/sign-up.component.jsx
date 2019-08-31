@@ -3,12 +3,13 @@ import React from 'react'
 import './sign-up.component.scss'
 import FormInput from '../form-input/form-input.component';
 import CustomButton from '../custom-button/custom-button.component';
+import { auth, createUserProfileDocument } from '../../firebase/firebase.utils';
 
 
 
 class SignUp extends React.Component {
-    constructor() {
-        super()
+    constructor(props) {
+        super(props)
 
         this.state = {
             email: '',
@@ -19,8 +20,41 @@ class SignUp extends React.Component {
     
     }
 
-    render() {
+     handleSubmit = async e => {
+         e.preventDefault()
+
         const {email, password, confirmPassword, displayName} = this.state
+        console.log(this.state)
+
+        if (confirmPassword !== password) return;
+
+        
+
+        try {
+            const{ user }  = await auth.createUserWithEmailAndPassword(email, password)
+
+            await createUserProfileDocument(user, {displayName})
+        } catch (error) {
+            console.log(error)
+        }
+
+        this.setState({
+            email: '',
+            password:'',
+            confirmPassword:'',
+            displayName:'',
+        })
+
+    }
+
+    handleChange = e => {
+       const  {value, name } = e.target;
+
+       this.setState({[name]:value});
+    }
+
+    render() {
+        const {email, password, confirmPassword, displayName} = this.state;
         return(
 
             <div className="sign-up">
@@ -30,7 +64,7 @@ class SignUp extends React.Component {
                 <span>
                     Sign up with your email and password
                 </span>
-                <form className='sign-up-form' action="">
+                <form className='sign-up-form'  onSubmit = {this.handleSubmit}>
                     <FormInput
                     label="Display Name"
                     type='text'
@@ -55,7 +89,7 @@ class SignUp extends React.Component {
                     name='confirmPassword'
                     value={confirmPassword}
                     onChange = {this.handleChange} required />
-                    <CustomButton type='submit' />
+                    <CustomButton type='submit' children = {'SIGN UP NOW'}  />
                 </form>
 
                 
