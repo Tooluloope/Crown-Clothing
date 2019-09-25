@@ -20,12 +20,10 @@ export class SignIn extends React.Component {
 
         try {
             const {email, password} = this.state
-            console.log(this.state)
 
             await auth.signInWithEmailAndPassword(email,password)
             
         } catch (error) {
-            console.log(error)
         }
 
 
