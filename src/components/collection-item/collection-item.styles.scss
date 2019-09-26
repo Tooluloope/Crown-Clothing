@@ -4,6 +4,7 @@
     flex-direction: column;
     height: 350px;
     align-items: center;
+    position: relative;
   
     .image {
       width: 100%;
@@ -27,6 +28,23 @@
   
       .price {
         width: 10%;
+      }
+    }
+
+    .custom-button {
+      display: none;
+      position: absolute;
+      top: 255px;
+      width: 80%;
+      opacity: 0.7;
+    }
+    &:hover {
+      .image {
+        opacity: 0.8;
+      }
+      .custom-button{
+        display: flex;
+        opacity: 0.85;
       }
     }
   }
